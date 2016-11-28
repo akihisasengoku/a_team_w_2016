@@ -5,7 +5,7 @@ class RepliesController < ApplicationController
       	if @reply.save
         	redirect_to root_path, notice: 'Reply was successfully created.' 
       	else
-      		redirect_to root_path, notice: 'Reply was not successfully created.' 
+      		redirect_to root_path, notice: 'Failed to create Reply.' 
       	end
     end
 

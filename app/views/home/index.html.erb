@@ -1,32 +1,60 @@
-<h1>Home#index</h1>
-<%= render "blogs/form" %>
+<div class="container">
+    <div class="row">
+    	<div class="col-md-8 col-md-offset-2">
+			<% flash.each do |name, msg| %>
+			    <% if name == "notice" %>
+			        <div class="alert alert-success">
+			          <a class="close" data-dismiss="alert">×</a> <!-- アラートダイアログに×ボタンをつける -->
+			          <%= msg %>
+			        </div>
+			    <% elsif name == "alert" %>
+			        <div class="alert alert-error bg-danger">
+			          <a class="close" data-dismiss="alert">×</a> <!-- アラートダイアログに×ボタンをつける -->
+			          <%= msg %>
+			        </div>
+			    <% end %>
+			<% end %>
+			<h1>ミニブログ</h1>
 
-<h1>Blogs</h1>
+			<div style="padding-top:30px;">
+				<%= render "blogs/form" %>
+			</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Body</th>
-      <th>Like</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
+			<div style="padding-top:30px;">
+				<% @blogs.each do |blog| %>
+					<div class="well well-lg">
+						<p class="lead"><%= blog.body %></p>
+						<div class="text-muted">
+							<span><%= blog.created_at.strftime("%Y.%m.%d %H:%M") %>　</span>
+							<span><%= fa_icon "heart" %><%= blog.like %>　</span>
+							<%= link_to blog_like_path(blog.id), :method => :patch do %>
+								<%= fa_icon "thumbs-up" %> いいね!
+							<% end %>
+							<a type="button" data-toggle="modal" data-target="#modal-blog-<%= blog.id %>" class="btn"><%= fa_icon "comment" %> コメント</a>
+						</div>
 
-  <tbody>
-    <% @blogs.each do |blog| %>
-      <tr>
-        <td><%= blog.body %></td>
-        <td><%= blog.like %></td>
-        <td><%= link_to 'いいね', blog_like_path(blog.id), method: :patch %></td>
-        <td><%= render "replies/form" ,blog: blog %></td>
-        <td>
-          <% blog.replies.each do |reply| %>
-		    <ul>
-		      <li><%= reply.comment %></li>
-		    </ul>
-	      <% end %>	
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+						<div class="modal fade" id="modal-blog-<%= blog.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							<div class="modal-dialog" role="document">
+						    	<div class="modal-content">
+						      		<div class="modal-body">
+						      			<p class="lead"><%= blog.body %></p>
+						        		<%= render "replies/form" ,blog: blog %>
+						      		</div>
+						    	</div>
+						  	</div>
+						</div>
+
+						
+						<% blog.replies.each do |reply| %>
+							<hr>
+						    <div><%= reply.comment %></div>
+						    <p class="text-right text-muted"><%= reply.created_at.strftime("%Y.%m.%d %H:%M") %></p>
+					    <% end %>	
+
+					</div>
+				<% end %>
+			</div>
+
+		</div>
+	</div>
+</div>

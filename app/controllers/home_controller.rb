@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-  	@blogs = Blog.all
+  	@blogs = Blog.order(created_at: :desc)
   	@blog = Blog.new
   	@reply = Reply.new
   end
