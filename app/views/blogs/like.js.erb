@@ -1,1 +1,1 @@
-$("#like-count-<%= @blog.id %>").html("<%= j( render( 'blogs/like_count' ) ) %>");
+$("#like-count-<%= @blog.id %>").html("<%= j( render 'blogs/like_count', blog: @blog ) %>");

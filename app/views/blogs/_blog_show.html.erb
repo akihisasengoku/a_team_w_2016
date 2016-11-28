@@ -2,7 +2,7 @@
 	<p class="lead"><%= blog.body %></p>
 	<div class="text-muted info-blog">
 		<span><%= fa_icon "calendar" %> <%= blog.created_at.strftime("%Y.%m.%d %H:%M") %>　</span>
-		<span id="like-count-<%= blog.id %>"><%= fa_icon "heart" %> <%= blog.like %>　</span>
+		<span id="like-count-<%= blog.id %>"><%= render "blogs/like_count",blog: blog %></span>
 		<%= link_to blog_like_path(blog.id), :method => :patch, remote: true do %>
 			<%= fa_icon "thumbs-up" %> いいね!
 		<% end %>
