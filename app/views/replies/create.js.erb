@@ -1,0 +1,3 @@
+$(".form-control").val("");
+$('.modal').modal('hide');
+$("#blog-<%= @reply.blog_id %>-comments").prepend("<%= j( render 'replies/reply_show' ,reply: @reply ) %>");

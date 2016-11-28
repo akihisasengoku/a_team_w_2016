@@ -1,0 +1,31 @@
+<div class="well well-lg blog-show">
+	<p class="lead"><%= blog.body %></p>
+	<div class="text-muted info-blog">
+		<span><%= fa_icon "calendar" %> <%= blog.created_at.strftime("%Y.%m.%d %H:%M") %>　</span>
+		<span id="like-count-<%= blog.id %>"><%= fa_icon "heart" %> <%= blog.like %>　</span>
+		<%= link_to blog_like_path(blog.id), :method => :patch, remote: true do %>
+			<%= fa_icon "thumbs-up" %> いいね!
+		<% end %>
+		<a type="button" data-toggle="modal" data-target="#modal-blog-<%= blog.id %>" class="btn"><%= fa_icon "comment" %> コメント</a>
+	</div>
+
+	<!-- モーダル -->
+	<div class="modal fade" id="modal-blog-<%= blog.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+	    	<div class="modal-content">
+	      		<div class="modal-body">
+	      			<p class="lead"><%= blog.body %></p>
+	        		<%= render "replies/form" ,blog: blog %>
+	      		</div>
+	    	</div>
+	  	</div>
+	</div>
+
+	
+	<div id="blog-<%= blog.id %>-comments">
+		<% blog.replies.each do |reply| %>
+			<%= render "replies/reply_show" ,reply: reply %>
+	    <% end %>	
+	</div>
+
+</div>

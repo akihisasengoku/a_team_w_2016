@@ -1,11 +1,10 @@
 class RepliesController < ApplicationController
+	skip_before_filter :verify_authenticity_token
+
 	def create
     	@reply = Reply.new(reply_params)
-
-      	if @reply.save
-        	redirect_to root_path, notice: 'Reply was successfully created.' 
-      	else
-      		redirect_to root_path, notice: 'Failed to create Reply.' 
+      	if !@reply.save
+      		redirect_to root_path, alert: 'Failed to create Reply.' 
       	end
     end
 

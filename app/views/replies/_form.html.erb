@@ -1,4 +1,4 @@
-<%= simple_form_for(@reply) do |f| %>
+<%= simple_form_for(@reply,remote: true) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -9,33 +9,4 @@
   <div class="form-actions text-right">
     <%= f.button :submit, "コメント" ,class: "btn btn-sm" %>
   </div>
-<% end %>
-
-
-
-<% if false %>
-<%= form_for(@reply) do |f| %>
-  <% if @reply.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@reply.errors.count, "error") %> prohibited this reply from being saved:</h2>
-
-      <ul>
-      <% @reply.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <%= f.hidden_field :blog_id, value: blog.id %>
-
-  <div class="field">
-    <%= f.label :comment %>
-    <%= f.text_field :comment %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
 <% end %>
