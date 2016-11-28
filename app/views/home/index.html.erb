@@ -1,0 +1,32 @@
+<h1>Home#index</h1>
+<%= render "blogs/form" %>
+
+<h1>Blogs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Body</th>
+      <th>Like</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @blogs.each do |blog| %>
+      <tr>
+        <td><%= blog.body %></td>
+        <td><%= blog.like %></td>
+        <td><%= link_to 'いいね', blog_like_path(blog.id), method: :patch %></td>
+        <td><%= render "replies/form" ,blog: blog %></td>
+        <td>
+          <% blog.replies.each do |reply| %>
+		    <ul>
+		      <li><%= reply.comment %></li>
+		    </ul>
+	      <% end %>	
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
